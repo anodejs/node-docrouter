@@ -6,6 +6,7 @@ The usage mimics the regular router's behavior.
 
 ## Retrieving the documentation ##
 Two options:
+
 - !! (GET http://myservice.mydomain.com/!!)
 - OPTIONS (OPTIONS http://myservice.mydomain.com/)
 
@@ -18,6 +19,7 @@ Two options:
 ## Connect Style ##
 
 ```
+﻿var docRouter = require('docrouter').DocRouter;
 var server = connect.createServer(docRouter(connect.router, "http://myservice.mydomain.com", function(app) {
     app.get('/:app', handleGetApp,
         {
@@ -50,6 +52,7 @@ server.listen(5000);
 
 ## Express Style ##
 ```
+﻿var docRouter = require('docrouter').DocRouter;
 var app = express.createServer();
 
 docRouter(app, "http://myservice.mydomain.com");
