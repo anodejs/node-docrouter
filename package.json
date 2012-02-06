@@ -2,7 +2,7 @@
   "author": "Saar Yahalom",
   "name": "docrouter",
   "description": "Documented Connect/Express Router. Send OPTIONS to see what kind of operations a Connect/Express server supports.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/anodejs/node-docrouter.git"

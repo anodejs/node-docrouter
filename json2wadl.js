@@ -129,11 +129,17 @@ var WadlHelper = {
             if (methodJson.request.params) {
                 this.addParamsToElement(methodJson.request.params, requestEle);
             }
+            if (methodJson.request.representations) {
+                for(i = 0, l = methodJson.request.representations.length; i < l; i++) {
+                    representation = methodJson.request.representations[i];
+                    representationEle = requestEle.ele('representation ').att('mediaType',representation );
+                }
+            }
         }
 
         if (methodJson.response) {
             responseEle = methodEle.ele('response');
-            if (methodJson.response.doc) requestEle.ele('doc', methodJson.response.doc);
+            if (methodJson.response.doc) responseEle.ele('doc', methodJson.response.doc);
             if (methodJson.response.representations) {
                 for(i = 0, l = methodJson.response.representations.length; i < l; i++) {
                     representation = methodJson.response.representations[i];

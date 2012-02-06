@@ -97,11 +97,37 @@ html(lang="en")
                                                     li
                                                         strong #{key}:#{" "}
                                                         em #{val}
-                        if method.response
-                            h2 Response
-                            if method.response.representations
+                    if method.request
+                        h2 Request
+                        if method.request.doc
+                            .doc= method.request.doc
+                        if method.request.representations
+                            ul
+                                each val, key in method.request.representations
+                                    li #{val}
+                        each param, paramName in method.request.params
+                            .param
                                 ul
-                                    each val, key in method.response.representations
-                                        li #{val}
+                                    li
+                                        .header
+                                            label
+                                                em #{paramName}
+                                    li
+                                        if param.doc
+                                            .doc= param.doc
+                                        ul
+                                            each val, key in param
+                                                if key != "doc"
+                                                    li
+                                                        strong #{key}:#{" "}
+                                                        em #{val}
+                    if method.response
+                        h2 Response
+                        if method.response.doc
+                            .doc= method.response.doc
+                        if method.response.representations
+                            ul
+                                each val, key in method.response.representations
+                                    li #{val}
 
 

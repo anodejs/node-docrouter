@@ -41,15 +41,21 @@ var DocRouter = function (connectRouter, baseUrl) {
         method = methods[i];
         // override the original router method
         this.connectRouter[method] = (function (method, originalMethodFunction) {
-            return function (route, fn, methodJson) {
-                methodJson = methodJson || {};
+            return function (route) {
+                var args = arguments;
+                // Multiple arguments may exist for multiple middlewares. The Json describing the method is the last argument.
+                methodJson = {};
+                if (typeof(args[args.length - 1]) === 'object'){
+                    methodJson = args[args.length - 1];
+                }
                 methodJson.method = method.toUpperCase();
                 methodJson.path = route;
 
                 self.methodJsons.push(methodJson);
 
-                // call the original router
-                originalMethodFunction.call(self.connectRouter, route, fn);
+                // call the original router with the original arguments
+                var originalArgs = Array.prototype.slice.call(args, 0, args.length - 1);
+                originalMethodFunction.apply(self.connectRouter, originalArgs);
             };
         }(method, self.connectRouter[method]));
     }
