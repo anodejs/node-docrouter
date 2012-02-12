@@ -43,10 +43,12 @@ var DocRouter = function (connectRouter, baseUrl) {
         this.connectRouter[method] = (function (method, originalMethodFunction) {
             return function (route) {
                 var args = arguments;
+                var handlersCount = args.length;
                 // Multiple arguments may exist for multiple middlewares. The Json describing the method is the last argument.
                 methodJson = {};
                 if (typeof(args[args.length - 1]) === 'object'){
                     methodJson = args[args.length - 1];
+                    handlersCount -= 1;
                 }
                 methodJson.method = method.toUpperCase();
                 methodJson.path = route;
@@ -54,7 +56,8 @@ var DocRouter = function (connectRouter, baseUrl) {
                 self.methodJsons.push(methodJson);
 
                 // call the original router with the original arguments
-                var originalArgs = Array.prototype.slice.call(args, 0, args.length - 1);
+
+                var originalArgs = Array.prototype.slice.call(args, 0, handlersCount);
                 originalMethodFunction.apply(self.connectRouter, originalArgs);
             };
         }(method, self.connectRouter[method]));
