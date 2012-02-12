@@ -2,7 +2,7 @@
   "author": "Saar Yahalom",
   "name": "docrouter",
   "description": "Documented Connect/Express Router. Send OPTIONS to see what kind of operations a Connect/Express server supports.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "git://github.com/anodejs/node-docrouter.git"
@@ -17,6 +17,7 @@
   "keywords": [ "node", "connect", "router", "wadl" ],
   "licenses": [ { "type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.html" } ],
   "dependencies": {
+    "connect": ">= 0.8.7",
     "xmlbuilder" : ">= 0.3.1",
     "jade": ">= 0.20.0"
   },
