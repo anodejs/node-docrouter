@@ -89,4 +89,7 @@ app.listen(5000);
 #Credits#
 * **[xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js)** by [oozcitak](https://github.com/oozcitak).
 * **[jade](https://github.com/visionmedia/jade)** by [visionmedia](https://github.com/visionmedia).
-* **[connect](https://github.com/senchalabs/connect)** by [senchalabs](https://github.com/senchalabs)
+* **[connect](https://github.com/senchalabs/connect)** by [senchalabs](https://github.com/senchalabs).
+
+#License#
+MIT
