@@ -87,6 +87,6 @@ app.listen(5000);
 ```
 
 #Credits#
-_xmlbuilder_
-_jade_
-_connect_
+* **[xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js)**
+* **jade**
+* **connect**
