@@ -85,3 +85,8 @@ app.post('/:app', handleAddApp,
 
 app.listen(5000);
 ```
+
+#Credits#
+_xmlbuilder_
+_jade_
+_connect_
