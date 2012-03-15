@@ -31,6 +31,10 @@ var server = connect.createServer(docRouter(connect.router, "http://myservice.my
                     type: "string",
                     required: true
                 }
+            },
+            response: {
+                doc: "Description of response body",
+                example: "{ name: 'myApp' }"
             }
         });
     app.post('/:app', handleAddApp,
@@ -43,6 +47,13 @@ var server = connect.createServer(docRouter(connect.router, "http://myservice.my
                     type: "string",
                     required: true
                 }
+            },
+            request: {
+                doc: "Description of request body",
+                params: {
+                    name: { doc: "app new name", type: "string", reuired: true }
+                },
+                example: "POST /myApp \n { name: 'my new app' }"
             }
         });
 });

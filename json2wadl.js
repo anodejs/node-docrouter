@@ -106,6 +106,7 @@ var WadlHelper = {
             resource = resoucesElement.ele('resource'),
             representation,
             representationEle,
+            exampleEle,
             requestEle,
             responseEle,
             methodEle,
@@ -135,6 +136,9 @@ var WadlHelper = {
                     representationEle = requestEle.ele('representation ').att('mediaType',representation );
                 }
             }
+            if (methodJson.request.example) {
+                exampleEle = requestEle.ele('doc', methodJson.request.example);
+            }
         }
 
         if (methodJson.response) {
@@ -145,6 +149,9 @@ var WadlHelper = {
                     representation = methodJson.response.representations[i];
                     representationEle = responseEle.ele('representation ').att('mediaType',representation );
                 }
+            }
+            if (methodJson.response.example) {
+                exampleEle = responseEle.ele('doc', methodJson.response.example);
             }
         }
 
