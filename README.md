@@ -15,10 +15,13 @@ Two options:
 - WADL (Accept: text/xml)
 - HTML (Accept: text/html)
 
+docRouter follows the ___RestDoc___ spec (https://github.com/anodejs/RestDoc), RestDoc is a live spec so please 
+expect chagnes over time.
+
 # Examples #
 ## Connect Style ##
 
-```
+```javascript
 ﻿var docRouter = require('docrouter').DocRouter;
 var server = connect.createServer(docRouter(connect.router, "http://myservice.mydomain.com", function(app) {
     app.get('/:app', handleGetApp,
