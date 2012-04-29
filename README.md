@@ -15,7 +15,7 @@ Two options:
 - WADL (Accept: text/xml)
 - HTML (Accept: text/html)
 
-docRouter follows the ___RestDoc___ spec (https://github.com/anodejs/RestDoc), RestDoc is a live spec so please 
+docRouter follows the ___RestDoc___ spec (https://github.com/RestDoc), RestDoc is a live spec so please 
 expect chagnes over time.
 
 # Examples #
