@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/anodejs/node-docrouter.png)](http://travis-ci.org/anodejs/node-docrouter)
 # DocRouter #
 A Connect/Express router wrapper which exposes a formatted description of the available services of a server.
 The documentation is available is multiple formats (Html, Wadl, Json).
