@@ -17,7 +17,7 @@ Two options:
 - HTML (Accept: text/html)
 
 docRouter follows the ___RestDoc___ spec (https://github.com/RestDoc), RestDoc is a live spec so please 
-expect chagnes over time.
+expect changes over time.
 
 # Examples #
 ## Connect Style ##
