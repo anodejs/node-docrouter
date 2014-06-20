@@ -28,10 +28,11 @@ var DocRouter = function (connectRouter, baseUrl) {
         getWadl(req, res);
     });
 
-
-    this.connectRouter.options("/", function (req, res) {
-        getWadl(req, res);
-    });
+    if (this.connectRouter.options != undefined) { // restify doesn't support options
+        this.connectRouter.options("/", function (req, res) {
+            getWadl(req, res);
+        });
+    }
 
     var method,
         i,
