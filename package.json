@@ -2,15 +2,14 @@
   "name": "docrouter",
   "author": "Saar Yahalom",
   "contributors": [{
-   "name": "Elad Ben Israel (eladb)",
+   "name": "Elad Ben Israel (eladb)"
   },
   {
-    "name": "Jonathan Dahan (jedahan)",
+    "name": "Jonathan Dahan (jedahan)"
   },
   {
-    "name": "fredericgermain [github]",
-  }
-  ],  
+    "name": "fredericgermain [github]"
+  }],  
   "description": "Documented Connect/Express Router. Send OPTIONS to see what kind of operations a Connect/Express server supports.",
   "version": "0.0.6",
   "repository": {
