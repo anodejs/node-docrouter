@@ -16,23 +16,16 @@ var DocRouter = function (connectRouter, baseUrl) {
     this.wadl = null;
 
     var self = this;
-    if (typeof connectRouter === "function") {
-        this.connectRouterReturn = connectRouter(function (router) {
-            self.connectRouter = router;
-        });
-    } else {
-        self.connectRouter = connectRouter;
-    }
+    self.connectRouter = connectRouter;
 
     this.connectRouter.get("/!!", function (req, res) {
         getWadl(req, res);
     });
 
-    if (this.connectRouter.options != undefined) { // restify doesn't support options
-        this.connectRouter.options("/", function (req, res) {
-            getWadl(req, res);
-        });
-    }
+
+    this.connectRouter.options("/", function (req, res) {
+        getWadl(req, res);
+    });
 
     var method,
         i,
@@ -46,7 +39,7 @@ var DocRouter = function (connectRouter, baseUrl) {
                 var args = arguments;
                 var handlersCount = args.length;
                 // Multiple arguments may exist for multiple middlewares. The Json describing the method is the last argument.
-                methodJson = {};
+                var methodJson = {};
                 if (typeof(args[args.length - 1]) === 'object'){
                     methodJson = args[args.length - 1];
                     handlersCount -= 1;
@@ -93,14 +86,13 @@ var DocRouter = function (connectRouter, baseUrl) {
         if (!self.wadl) {
             self.wadl = j2w.toWadl(self.methodJsons, self.baseUrl, { pretty: true });
         }
-
         res.writeHead(200, { 'Content-Type': 'application/xml' });
         res.end(self.wadl);
     }
 };
 
 
-exports.DocRouter = function (connectRouter, baseUrl, fn) {
+exports.docRouter = function (connectRouter, baseUrl, fn) {
     if (!connectRouter) throw new Error("connectRouter is missing");
 
     var docRouter = new DocRouter(connectRouter, baseUrl);
@@ -109,6 +101,6 @@ exports.DocRouter = function (connectRouter, baseUrl, fn) {
         fn(docRouter.connectRouter);
     }
 
-    return docRouter.connectRouterReturn;
+    return docRouter.connectRouter;
 };
 

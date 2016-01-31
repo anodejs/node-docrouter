@@ -1,6 +1,5 @@
-[![build status](https://secure.travis-ci.org/anodejs/node-docrouter.png)](http://travis-ci.org/anodejs/node-docrouter)
 # DocRouter #
-A Connect/Express router wrapper which exposes a formatted description of the available services of a server.
+Express router wrapper which exposes a formatted description of the available services of a server.
 The documentation is available is multiple formats (Html, Wadl, Json).
 
 The usage mimics the regular router's behavior.
@@ -20,59 +19,15 @@ docRouter follows the ___RestDoc___ spec (https://github.com/RestDoc), RestDoc i
 expect changes over time.
 
 # Examples #
-## Connect Style ##
 
-```javascript
-﻿var docRouter = require('docrouter').DocRouter;
-var server = connect.createServer(docRouter(connect.router, "http://myservice.mydomain.com", function(app) {
-    app.get('/:app', handleGetApp,
-        {
-            id: "GetApp",
-            doc: "Gets the app",
-            params: {
-                app: {
-                    style: "template",
-                    type: "string",
-                    required: true
-                }
-            },
-            response: {
-                doc: "Description of response body",
-                example: "{ name: 'myApp' }"
-            }
-        });
-    app.post('/:app', handleAddApp,
-        {
-            id: "UpdateApp",
-            doc: "Updates the app",
-            params: {
-                app: {
-                    style: "template",
-                    type: "string",
-                    required: true
-                }
-            },
-            request: {
-                doc: "Description of request body",
-                params: {
-                    name: { doc: "app new name", type: "string", reuired: true }
-                },
-                example: "POST /myApp \n { name: 'my new app' }"
-            }
-        });
-});
-);
-server.listen(5000);
 ```
+var docRouter = require('docrouter').docRouter;
+var app = express();
+var router = express.Router();
 
-## Express Style ##
-```
-﻿var docRouter = require('docrouter').DocRouter;
-var app = express.createServer();
+docRouter(router, "http://myservice.mydomain.com");
 
-docRouter(app, "http://myservice.mydomain.com");
-
-app.get('/:app', handleGetApp,
+router.get('/:app', handleGetApp,
     {
         id: "GetApp",
         doc: "Gets the app",
@@ -85,7 +40,7 @@ app.get('/:app', handleGetApp,
         }
     });
 
-app.post('/:app', handleAddApp,
+router.post('/:app', handleAddApp,
     {
         id: "UpdateApp",
         doc: "Updates the app",
@@ -97,7 +52,8 @@ app.post('/:app', handleAddApp,
             }
         }
     });
-
+    
+app.use('/', router);
 app.listen(5000);
 ```
 
@@ -106,5 +62,5 @@ app.listen(5000);
 * **[jade](https://github.com/visionmedia/jade)** by [visionmedia](https://github.com/visionmedia).
 * **[connect](https://github.com/senchalabs/connect)** by [senchalabs](https://github.com/senchalabs).
 
-#License#
-MIT
+# License
+[MIT](LICENSE)
