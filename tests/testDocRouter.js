@@ -1,152 +1,63 @@
-﻿var docRouter = require('../index').DocRouter;
-var connect = require('connect');
+﻿var docRouter = require('../index').docRouter;
 var express = require('express');
 var request = require('request');
+var http = require('http');
 
 function nope(req, res) {
     res.end();
 }
 
-function mapRouter(app) {
-    app.get('/:app', nope,
-        {
-            id: "GetApp",
-            doc: "Gets the app",
-            params: {
-                app: {
-                    style: "template",
-                    type: "string",
-                    required: true
-                }
-            }
-        });
-    app.post('/:app', nope,
-        {
-            id: "UpdateApp",
-            doc: "Updates the app",
-            params: {
-                app: {
-                    style: "template",
-                    type: "string",
-                    required: true
-                }
-            }
-        });
-}
+exports['test get wadl with express'] = function (test) {
+  var app = express();
+  var router = express.Router();
+    
+  docRouter(router, "boo", function (router) {
 
-exports['test get wadl'] = function (test) {
-    var server = connect.createServer(
-        docRouter(connect.router, "boo", mapRouter)
-    );
-    server.listen(5000);
-
-    request('http://localhost:5000/!!', function (error, res) {
-        if (error) {
-            test.fail("Could not get waml");
-            return;
+    router.get('/:app', nope,
+      {
+        id: "GetApp",
+        doc: "Gets the app",
+        params: {
+          app: {
+            style: "template",
+            type: "string",
+            required: true
+          }
         }
+      });
 
-        test.ok(~res.body.indexOf('<method id="GetApp" name="GET">'));
-        test.ok(~res.body.indexOf('<method id="UpdateApp" name="POST">'));
-        server.close();
-        test.done();
+    router.post('/:app', nope,
+      {
+        id: "UpdateApp",
+        doc: "Updates the app",
+        params: {
+          app: {
+            style: "template",
+            type: "string",
+            required: true
+          }
+        }
+      });
     });
-};
-
-exports['test get json'] = function (test) {
-    var server = connect.createServer(
-        docRouter(connect.router, "boo", mapRouter)
-    );
-    server.listen(5000);
+    
+    app.use('/', router);
+    var server = app.listen(5000);
 
     request({
-            uri: 'http://localhost:5000/',
-            method: 'OPTIONS',
-            headers: { accept: 'application/json'}
-        },
-        function (error, res) {
-            if (error) {
-                test.fail("Could not get json");
-                return;
-            }
+        url: 'http://localhost:5000/!!',
+        headers: {
+          'accept': 'text/html'
+        } 
+      },
+      function (error, res) {
+          if (error) {
+              return test.fail("Could not get waml");
+          }
 
-            var methodsJson = JSON.parse(res.body);
-            test.ok(methodsJson.length == 2);
-            server.close();
-            test.done();
-        });
-};
-
-exports['test get html'] = function (test) {
-    var server = connect.createServer(
-        docRouter(connect.router, "boo", mapRouter)
-    );
-    server.listen(5000);
-
-    request({
-            uri: 'http://localhost:5000/',
-            method: 'OPTIONS',
-            headers: { accept: 'text/html'}
-        },
-        function (error, res) {
-            if (error) {
-                test.fail("Could not get html");
-                return;
-            }
-
-          test.ok(~res.body.indexOf('GET</label>'));
-            test.ok(~res.body.indexOf('POST</label>'));
+          test.ok(~res.body.indexOf('<label class="methodType">GET</label><label class="methodPath">/:app</label><div class="doc">Gets the app</div>'));
+          test.ok(~res.body.indexOf('<label class="methodType">POST</label><label class="methodPath">/:app</label><div class="doc">Updates the app</div>'));
           server.close();
-            test.done();
-        });
+          test.done();
+      }
+    );
 };
-
-
-if (express) {
-    exports['test get wadl with express'] = function (test) {
-        var app = express.createServer();
-
-        docRouter(app, "boo");
-
-        app.get('/:app', nope,
-            {
-                id: "GetApp",
-                doc: "Gets the app",
-                params: {
-                    app: {
-                        style: "template",
-                        type: "string",
-                        required: true
-                    }
-                }
-            });
-
-        app.post('/:app', nope,
-            {
-                id: "UpdateApp",
-                doc: "Updates the app",
-                params: {
-                    app: {
-                        style: "template",
-                        type: "string",
-                        required: true
-                    }
-                }
-            });
-
-        app.listen(5000);
-
-        request('http://localhost:5000/!!', function (error, res) {
-            if (error) {
-                test.fail("Could not get waml");
-                return;
-            }
-
-            test.ok(~res.body.indexOf('<method id="GetApp" name="GET">'));
-            test.ok(~res.body.indexOf('<method id="UpdateApp" name="POST">'));
-            app.close();
-            test.done();
-        });
-    };
-}
-

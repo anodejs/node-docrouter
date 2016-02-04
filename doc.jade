@@ -2,11 +2,10 @@ doctype html
 html(lang="en")
     head
         title Documentation for #{baseUrl}
-        style
-          :css
+        style.
             body {
-                font-family: "Times New Roman", Geneva, Helvetica, sans-serif;
-                font-size: 16px;
+              font: "Segoe UI", Geneva, Arial, Helvetica, sans-serif;
+              font-size: 16px;
             }
             .wrapper {
                 max-width: 900px;
@@ -71,18 +70,6 @@ html(lang="en")
                 padding-right: 20px;
                 font-size: 18px;
             }
-            pre.source-code {
-                font-family: "Andale Mono", "Lucida Console", Monaco, fixed, monospace;
-                color: black;
-                background-color: #DDDDDD;
-                font-size: 12px;
-                overflow: auto;
-                padding: 5px;
-                width: 98%;
-                border: 1px dashed #999999;
-                line-height: 14px;
-                clear:both;
-            }
     body
         .wrapper
             h1= baseUrl
@@ -134,9 +121,6 @@ html(lang="en")
                                                     li
                                                         strong #{key}:#{" "}
                                                         em #{val}
-                        if method.request.example
-                            h3 Example
-                            pre.source-code= method.request.example
                     if method.response
                         h2 Response
                         if method.response.doc
@@ -145,7 +129,5 @@ html(lang="en")
                             ul
                                 each val, key in method.response.representations
                                     li #{val}
-                        if method.response.example
-                            h3 Example
-                            pre.source-code= method.response.example
+
 

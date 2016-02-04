@@ -1,17 +1,8 @@
 {
-  "name": "docrouter",
   "author": "Saar Yahalom",
-  "contributors": [{
-   "name": "Elad Ben Israel (eladb)"
-  },
-  {
-    "name": "Jonathan Dahan (jedahan)"
-  },
-  {
-    "name": "fredericgermain [github]"
-  }],  
+  "name": "docrouter",
   "description": "Documented Connect/Express Router. Send OPTIONS to see what kind of operations a Connect/Express server supports.",
-  "version": "0.0.6",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/anodejs/node-docrouter.git"
@@ -20,15 +11,25 @@
   "scripts": {
     "test": "nodeunit tests"
   },
-  "engines": {
-    "node": "~0.6.5"
-  },
-  "keywords": [ "node", "connect", "router", "wadl" ],
-  "licenses": [ { "type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.html" } ],
+  "keywords": [
+    "node",
+    "connect",
+    "router",
+    "wadl"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.html"
+    }
+  ],
   "dependencies": {
-    "connect": ">= 0.8.7",
-    "xmlbuilder" : ">= 0.3.1",
-    "jade": ">= 0.20.0"
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "request": "^2.69.0",
+    "xmlbuilder": "^4.2.1"
   },
-  "devDependencies": { "nodeunit": "0.5.5" }
+  "devDependencies": {
+    "nodeunit": "0.9.x"
+  }
 }
