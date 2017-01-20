@@ -1,0 +1,132 @@
+doctype html
+html(lang="en")
+    head
+        title Documentation for #{baseUrl}
+        style.
+            body {
+              font: "Segoe UI", Geneva, Arial, Helvetica, sans-serif;
+              font-size: 16px;
+            }
+            .wrapper {
+                max-width: 900px;
+                margin: auto;
+            }
+            .methodDescription {
+                display: block; color: #626163; background: #EDEDED;
+                margin: 10px 0 5px 0; clear: both;
+                border: 1px solid #E1E1E2;
+                padding: 8px 12px;
+                width: 98%;
+            }
+            label.methodType {
+                margin: 10px 5px 10px 5px; clear: both;
+                padding: 5px 5px 5px 5px; clear: both;
+                border-radius: 7px;
+                font-size: 16px; font-weight: bold;
+                color: white; background: #8D6DD7;
+            }
+            label.methodPath {
+                margin: 10px 5px 10px 5px; clear: both;
+                padding: 5px 5px 5px 5px; clear: both;
+                font-size: 22px;
+                color: black;
+            }
+            .doc {
+                margin: 10px 0 15px 0; clear: both;
+                font-size: 18px;
+            }
+            .param {
+                display: block;
+                margin: 3px 0 5px 0; clear: both;
+                list-style-type: none;
+            }
+            .methodDescription li .doc {
+                display: inline;
+            }
+            .param .header {
+                min-width: 90px;
+                min-height: 30px;
+                display: block;
+                margin-right: 10px;
+                float: left;
+            }
+            .param label {
+                display: block;
+                padding: 5px 5px 5px 5px; clear: both;
+                margin-top: 5px;
+                left: 15px; right: 15px;
+                border-radius: 7px;
+                font-size: 16px; font-weight: bold; text-align:center;
+                color: white; background: #6D8DD7;
+            }
+            .methodDescription ul {
+                display: block;
+                padding: 0;
+                margin-left: 15px;
+            }
+            .methodDescription li {
+                display: inline;
+                list-style-type: none;
+                padding-right: 20px;
+                font-size: 18px;
+            }
+    body
+        .wrapper
+            h1= baseUrl
+            each method in methodJsons
+                .methodDescription
+                    label.methodType= method.method
+                    label.methodPath= method.path
+                    .doc= method.doc
+
+                    if method.params
+                        h2 Parameters
+                        each param, paramName in method.params
+                            .param
+                                ul
+                                    li
+                                        .header
+                                            label
+                                                em #{paramName}
+                                    li
+                                        if param.doc
+                                            .doc= param.doc
+                                        ul
+                                            each val, key in param
+                                                if key != "doc"
+                                                    li
+                                                        strong #{key}:#{" "}
+                                                        em #{val}
+                    if method.request
+                        h2 Request
+                        if method.request.doc
+                            .doc= method.request.doc
+                        if method.request.representations
+                            ul
+                                each val, key in method.request.representations
+                                    li #{val}
+                        each param, paramName in method.request.params
+                            .param
+                                ul
+                                    li
+                                        .header
+                                            label
+                                                em #{paramName}
+                                    li
+                                        if param.doc
+                                            .doc= param.doc
+                                        ul
+                                            each val, key in param
+                                                if key != "doc"
+                                                    li
+                                                        strong #{key}:#{" "}
+                                                        em #{val}
+                    if method.response
+                        h2 Response
+                        if method.response.doc
+                            .doc= method.response.doc
+                        if method.response.representations
+                            ul
+                                each val, key in method.response.representations
+                                    li #{val}
+
