@@ -1,10 +1,10 @@
 ﻿var j2w = require('./json2wadl'),
-    jade = require('jade'),
+    pug = require('pug'),
     fs = require('fs'),
     methods = require('./methods'),
     path = require('path');
 
-var jadeTemplate = fs.readFileSync(path.join(__dirname, 'doc.jade'), 'utf8');
+var pugTemplate = fs.readFileSync(path.join(__dirname, 'doc.pug'), 'utf8');
 
 var DocRouter = function (connectRouter, baseUrl) {
     if (!connectRouter) throw new Error("Connect router function is missing.");
@@ -73,7 +73,7 @@ var DocRouter = function (connectRouter, baseUrl) {
             res.writeHead(200, { 'Content-Type': 'text/html' });
             if (!self.html) {
                 try {
-                    htmlTemplate = jade.compile(jadeTemplate);
+                    htmlTemplate = pug.compile(pugTemplate);
                     self.html = htmlTemplate({methodJsons: self.methodJsons, baseUrl: self.baseUrl});
                 } catch(e) {
                     console.error(e);
